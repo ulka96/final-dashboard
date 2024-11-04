@@ -10,7 +10,7 @@ const AdminProductTable = () => {
 const fetchProducts = async () =>{
   try {
     console.log("object")
-    const response = await fetch('http://localhost:8000/products');
+    const response = await fetch('http://localhost:3000/products');
     if (!response.ok) throw new Error('Failed to fetch products');
     const data = await response.json();
     setProducts(data);
@@ -25,7 +25,7 @@ const fetchProducts = async () =>{
 
   const handleDelete = async (id) => {
     try {
-      const response = await fetch(`http://localhost:8000/products/${id}`, {
+      const response = await fetch(`http://localhost:3000/products/${id}`, {
         method: 'DELETE',
       });
 

@@ -12,7 +12,7 @@ const EditUser = () => {
   });
 
   const getUserById = async (id) => {
-    const resp = await fetch(`http://localhost:8000/users/${id}`);
+    const resp = await fetch(`http://localhost:3000/api/users/${id}`);
     const data = await resp.json();
     setFormData(data);
   };
@@ -27,6 +27,7 @@ const EditUser = () => {
     formData.append('upload_preset', 'ujdnc7cj'); 
 
     const response = await fetch('https://api.cloudinary.com/v1_1/dacsfvaap/image/upload', {
+      credentials: "include",
       method: 'POST',
       body: formData
     });
@@ -66,12 +67,13 @@ const EditUser = () => {
         photo: typeof photoUrl === 'string' ? photoUrl : formData.photo, 
       };
 
-      const response = await fetch(`http://localhost:8000/users/${_id}`, {
+      const response = await fetch(`http://localhost:3000/api/users/${_id}`, {
         method: 'PATCH',
         headers: {
           'Content-Type': 'application/json',
         },
         body: JSON.stringify(updatedData),
+        credentials: "include",
       });
 
       if (!response.ok) {

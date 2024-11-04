@@ -19,7 +19,7 @@ const EditProduct = () => {
 
   const getProductById = async (id) => {
     try {
-      const resp = await fetch(`http://localhost:8000/products/${id}`);
+      const resp = await fetch(`http://localhost:3000/products/${id}`);
       const data = await resp.json();
       setFormData(data);
     } catch (error) {
@@ -78,7 +78,7 @@ const EditProduct = () => {
         image: imageUrl, // Cloudinary'den gelen resim URL'si
       };
 
-      const response = await fetch(`http://localhost:8000/products/${_id}`, {
+      const response = await fetch(`http://localhost:3000/products/${_id}`, {
         method: 'PATCH',
         headers: {
           'Content-Type': 'application/json',

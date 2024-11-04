@@ -5,7 +5,7 @@ const AddUser = () => {
 
   const [photo, setPhoto] = useState('');
   const [email, setEmail] = useState('');
-  const [username, setUsername] = useState('');
+  const [userName, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const navigate = useNavigate();
   
@@ -15,26 +15,24 @@ const AddUser = () => {
     const newUser = {
       photo,
       email,
-      username,
+      userName,
       password,
     };
 
     try {
-      const response = await fetch('http://localhost:8000/users', {
+      const response = await fetch('http://localhost:3000/api/users', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
         },
+        credentials: "include",
         body: JSON.stringify(newUser),
       });
 
       if (!response.ok) {
         const data = await response.json();
       };
-      // const data = await response.json();
-      
-      // await response.json();
-
+  
       setPhoto('');
       setEmail('');
       setUsername('');
@@ -72,7 +70,7 @@ const AddUser = () => {
           <input 
             type="text" 
             placeholder="Username" 
-            value={username} 
+            value={userName} 
             onChange={(e) => setUsername(e.target.value)} 
             className="border p-2" 
             required 

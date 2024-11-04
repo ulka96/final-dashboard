@@ -10,7 +10,7 @@ const [users, setUsers] = useState([])
 const fetchUsers = async () =>{
   try {
     console.log("object")
-    const response = await fetch('http://localhost:8000/users');
+    const response = await fetch('http://localhost:3000/api/users');
     if (!response.ok) throw new Error('Failed to fetch users');
     const data = await response.json();
     setUsers(data);
@@ -25,7 +25,8 @@ const fetchUsers = async () =>{
 
   const handleDelete = async (id) => {
     try {
-      const response = await fetch(`http://localhost:8000/users/${id}`, {
+      const response = await fetch(`http://localhost:3000/api/users/${id}`, {
+        credentials: "include",
         method: 'DELETE',
       });
 
@@ -54,7 +55,6 @@ const fetchUsers = async () =>{
           <span className="relative z-10">Add User</span></button>
   </Link>
 
-
     <table className="min-w-full bg-white border border-gray-300">
       <thead className="bg-gray-200">
         <tr>
@@ -68,7 +68,7 @@ const fetchUsers = async () =>{
         </tr>
       </thead>
       <tbody>
-          {users && users.map((users) => (
+          {Array.isArray(users) && users.map((users) => (
             <tr key={users._id} className="odd:bg-white even:bg-gray-100">
               <td className="py-2 px-4 border border-gray-300">{users._id}</td>
 

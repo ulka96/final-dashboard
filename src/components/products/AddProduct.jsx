@@ -49,7 +49,7 @@ const AddProduct = () => {
       };
 
       // Ürünü backend'e gönder
-      const response = await fetch('http://localhost:8000/products', {
+      const response = await fetch('http://localhost:3000/products', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
