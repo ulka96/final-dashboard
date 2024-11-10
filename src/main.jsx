@@ -5,9 +5,9 @@ import './index.css'
 import { createBrowserRouter, RouterProvider } from 'react-router-dom'
 
 //User
-import AdminUserTable from './components/Users/AdminUserTable.jsx'
-import AddUser from './components/Users/AddUser.jsx'
-import EditUser from './components/Users/EditUser.jsx'
+import AdminUserTable from './components/users/AdminUserTable.jsx'
+import AddUser from './components/users/AddUser.jsx'
+import EditUser from './components/users/EditUser.jsx'
 
 //Product
 import EditProduct from './components/products/EditProduct.jsx'

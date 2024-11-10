@@ -1,84 +1,94 @@
-import React, { useState } from 'react';
+import React, { useRef, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 const AddProduct = () => {
-  const [title, setTitle] = useState('');
-  const [price, setPrice] = useState('');
-  const [category, setCategory] = useState('');
-  const [image, setImage] = useState(null); // image null olarak ayarlanıyor
-  const [size, setSize] = useState('');
-  const [color, setColor] = useState('');
-  const [description, setDescription] = useState('');
-  const [quantity, setQuantity] = useState('');
+
+   // States
+  const [imageUrl, setImageUrl] = useState(null)
+
+  // Refs
+  const fileInputRef = useRef()
+  const titleRef = useRef()
+  const priceRef = useRef()
+  const categoryRef = useRef()
+  const materialRef = useRef()
+  const descriptionRef = useRef()
+  const quantityRef = useRef()
+  const colorRef = useRef()
+  const skuRef = useRef()
+  const slugRef = useRef()
+  const ratingRef = useRef()
+
+
+
   const navigate = useNavigate();
+
+  // Event handlers
+  const handleFileChange = (event) => {
+  const file = event.target.files[0]
+  if (file) {
+    setImageUrl(URL.createObjectURL(file))
+  } 
+  }
   
-  // Cloudinary'ye resim yükleme fonksiyonu
-  const uploadImageToCloudinary = async (file) => {
-    const formData = new FormData();
-    formData.append('file', file);
-    formData.append('upload_preset', 'ujdnc7cj'); // Cloudinary dashboard'dan alabilirsiniz
+  const handleAddProduct = async(e) => {
+    e.preventDefault()
 
-    const response = await fetch('https://api.cloudinary.com/v1_1/dacsfvaap/image/upload', {
-      method: 'POST',
-      body: formData,
-    });
+    const title = titleRef.current.value.trim()
+    const price = priceRef.current.value.trim()
+    const category = categoryRef.current.value.trim()
+    const material = materialRef.current.value.trim()
+    const description = descriptionRef.current.value.trim()
+    const quantity = quantityRef.current.value.trim()
+    const color = colorRef.current.value.trim()
+    const sku = skuRef.current.value.trim()
+    const slug = slugRef.current.value.trim()
+    const rating = ratingRef.current.value.trim()
+    const file = fileInputRef.current.files[0]
 
-    const data = await response.json();
-    return data.secure_url; // Cloudinary'den gelen URL
-  };
 
-  const handleAddProduct = async (e) => {
-    e.preventDefault();
+    const formData = new FormData()
+    formData.append("title", title)
+    formData.append("price", price)
+    formData.append("category", category)
+    formData.append("material", material)
+    formData.append("description", description)
+    formData.append("quantity", quantity)
+    formData.append("color", color)
+    formData.append("sku", sku)
+    formData.append("slug", slug)
+    formData.append("rating", rating)
+
+
+
+    if (file) {
+      formData.append("productPic", file)
+    }
+
 
     try {
-      // Eğer resim seçilmişse önce Cloudinary'e yükle
-      let imageUrl = '';
-      if (image) {
-        imageUrl = await uploadImageToCloudinary(image);
-      }
+      const response = await fetch("http://localhost:3000/api/products", {
+        method: "POST",
+        body: formData,
+        credentials: "include"
+      })
 
-      const newProduct = {
-        title,
-        price,
-        category,
-        image: imageUrl, // Yüklenen resmin URL'si
-        size: size.split(','),  // Size bir array olduğu için virgül ile ayırıyoruz
-        color: color.split(','), // Color bir array olduğu için virgül ile ayırıyoruz
-        description,
-        quantity,
-      };
+      const data = await response.json()
 
-      // Ürünü backend'e gönder
-      const response = await fetch('http://localhost:3000/products', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(newProduct),
-      });
-
-      if (response.ok) {
-        setTitle('');
-        setPrice('');
-        setCategory('');
-        setImage(null); // Resmi temizle
-        setSize('');
-        setColor('');
-        setDescription('');
-        setQuantity('');
-        navigate("/products");
-      } else {
-        console.error('Error adding product');
-      }
+      console.log(data)
+      console.log(response)
+     
     } catch (error) {
-      console.error('Error adding product:', error);
+      console.error("Fetch error:", error);
     }
-  };
 
-  const handleFileChange = (e) => {
-    const file = e.target.files[0];
-    setImage(file); // Resmi state'de saklıyoruz
-  };
+
+
+  }
+  
+
+
+
 
   return (
     <div className="my-8 mx-8">
@@ -88,62 +98,83 @@ const AddProduct = () => {
           <input 
             type="text" 
             placeholder="Title" 
-            value={title} 
-            onChange={(e) => setTitle(e.target.value)} 
+            ref={titleRef} 
+            
             className="border p-2" 
             required 
           />
           <input 
             type="number" 
             placeholder="Price" 
-            value={price} 
-            onChange={(e) => setPrice(e.target.value)} 
+            ref={priceRef} 
+            
             className="border p-2" 
             required 
           />
           <input 
             type="text" 
             placeholder="Category" 
-            value={category} 
-            onChange={(e) => setCategory(e.target.value)} 
+            ref={categoryRef} 
+            
             className="border p-2" 
             required 
           />
           <input 
             type="file" 
             placeholder="Image" 
-            onChange={handleFileChange} // Resim değişikliğini dinliyoruz
+            ref={fileInputRef}
+            onChange={handleFileChange} 
             className="border p-2" 
             required 
           />
           <input 
             type="text" 
-            placeholder="Size (comma separated)" 
-            value={size} 
-            onChange={(e) => setSize(e.target.value)} 
+            placeholder="Material" 
+            ref={materialRef}
             className="border p-2" 
             required 
           />
           <input 
             type="text" 
             placeholder="Color (comma separated)" 
-            value={color} 
-            onChange={(e) => setColor(e.target.value)} 
+            ref={colorRef}
             className="border p-2" 
             required 
           />
           <textarea 
             placeholder="Description" 
-            value={description} 
-            onChange={(e) => setDescription(e.target.value)} 
+            ref={descriptionRef}
             className="border p-2" 
             required 
           />
           <input 
             type="number" 
             placeholder="Quantity" 
-            value={quantity} 
-            onChange={(e) => setQuantity(e.target.value)} 
+            ref={quantityRef}
+            className="border p-2" 
+            required 
+          />
+
+             <input 
+            type="text" 
+            placeholder="Slug" 
+            ref={slugRef}
+            className="border p-2" 
+            required 
+          />
+
+             <input 
+            type="text" 
+            placeholder="SKU" 
+            ref={skuRef}
+            className="border p-2" 
+            required 
+          />
+
+            <input 
+            type="text" 
+            placeholder="rating" 
+            ref={ratingRef}
             className="border p-2" 
             required 
           />

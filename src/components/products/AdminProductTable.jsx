@@ -10,7 +10,7 @@ const AdminProductTable = () => {
 const fetchProducts = async () =>{
   try {
     console.log("object")
-    const response = await fetch('http://localhost:3000/products');
+    const response = await fetch('http://localhost:3000/api/products');
     if (!response.ok) throw new Error('Failed to fetch products');
     const data = await response.json();
     setProducts(data);
@@ -25,7 +25,7 @@ const fetchProducts = async () =>{
 
   const handleDelete = async (id) => {
     try {
-      const response = await fetch(`http://localhost:3000/products/${id}`, {
+      const response = await fetch(`http://localhost:3000/api/products/${id}`, {
         method: 'DELETE',
       });
 
@@ -55,11 +55,12 @@ const fetchProducts = async () =>{
           <th className="py-2 px-4 border border-gray-300">title</th>
           <th className="py-2 px-4 border border-gray-300">price</th>
           <th className="py-2 px-4 border border-gray-300">category</th>
-          <th className="py-2 px-4 border border-gray-300">size</th>
+          <th className="py-2 px-4 border border-gray-300">material</th>
           <th className="py-2 px-4 border border-gray-300">color</th>
           <th className="py-2 px-4 border border-gray-300">description</th>
           <th className="py-2 px-4 border border-gray-300">quantity</th>
-          <th className="py-2 px-4 border border-gray-300">settings</th>
+            <th className="py-2 px-4 border border-gray-300">SKU</th>
+            <th className="py-2 px-4 border border-gray-300">Slug</th>
 
         </tr>
       </thead>
@@ -69,16 +70,18 @@ const fetchProducts = async () =>{
               <td className="py-2 px-4 border border-gray-300">{products._id}</td>
 
               <td className="py-2 px-4 border border-gray-300">
-                <img src={products.image}/>
+                <img src={`http://localhost:3000/${products.productPic}`}/>
                 
                 </td>
               <td className="py-2 px-4 border  border-gray-300">{products.title}</td>
               <td className="py-2 px-4 border items-center text-center justify-center border-gray-300">{products.price}</td>
               <td className="py-2 px-4 border items-center text-center justify-center border-gray-300">{products.category}</td>
-              <td className="py-2 px-4 border items-center text-center justify-center border-gray-300">{products.size}</td>
+              <td className="py-2 px-4 border items-center text-center justify-center border-gray-300">{products.material}</td>
               <td className="py-2 px-4 border items-center text-center justify-center border-gray-300">{products.color}</td>
               <td className="py-2 px-4 border items-center text-center justify-center border-gray-300">{products.description}</td>
               <td className="py-2 px-4 border  items-center text-center justify-center border-gray-300">{products.quantity}</td>
+              <td className="py-2 px-4 border  items-center text-center justify-center border-gray-300">{products.sku}</td>
+              <td className="py-2 px-4 border  items-center text-center justify-center border-gray-300">{products.slug}</td>
               <td className="py-2 px-4 border items-center text-center justify-center border-gray-300">
               <Link to={`/products/${products._id}`}>
          
