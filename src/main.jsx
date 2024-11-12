@@ -13,6 +13,13 @@ import EditUser from './components/users/EditUser.jsx'
 import EditProduct from './components/products/EditProduct.jsx'
 import AddProducts from './components/products/AddProduct.jsx'
 import AddProductForm from './components/products/AdminProductTable.jsx'
+import AddCategoryForm from './components/categories/AdminCategoryTable.jsx'
+import AddCategory from './components/categories/AddCategory.jsx'
+import EditCategory from './components/categories/EditCategory.jsx'
+
+// Redux
+import { Provider } from 'react-redux';
+import {store} from './store/store.js';
 
 
 const router = createBrowserRouter([
@@ -37,6 +44,15 @@ const router = createBrowserRouter([
       {
         path: "/addProduct", element: <AddProducts/>
       },
+      {
+        path: "/categories", element: <AddCategoryForm/>,
+      },
+      {
+        path: "/addCategory", element: <AddCategory/>
+      },
+      {
+        path: "/categories/:categoryId", element: <EditCategory/>
+      },
 
     ]
   },
@@ -45,7 +61,9 @@ const router = createBrowserRouter([
 
 createRoot(document.getElementById('root')).render(
   <StrictMode>
-    <RouterProvider router={router}/>
+    <Provider store={store}>
+      <RouterProvider router={router} />
+      </Provider>
   </StrictMode>
 )
 

@@ -36,11 +36,18 @@ const Sidebar = ({ sidebarToggle, onMenuItemClick }) => {
           <FaUsers className='mr-3'/>
           Products
         </Link>
+      
+        <Link className=' hover: flex items-center text-center justify-center h-[50px] 
+   before:ease relative overflow-hidden hover:bg-gray-300
+   shadow-2xl transition-all before:absolute before:right-0 before:top-0 before:h-12 before:w-6
+   before:translate-x-12 before:rotate-6 before:bg-white before:opacity-10
+   before:duration-700 hover:shadow-[#c5c2c2] 
+   hover:before:-translate-x-40' to="/categories">
+          <FaUsers className='mr-3'/>
+          Categories
+        </Link>
+     
 
-     {/* <Link className=' hover: flex items-center text-center justify-center uppercase h-[50px] before:ease relative  overflow-hidden border border-green-500 bg-green-500 text-white shadow-2xl transition-all before:absolute before:right-0 before:top-0 before:h-12 before:w-6 before:translate-x-12 before:rotate-6 before:bg-white before:opacity-10 before:duration-700 hover:shadow-green-500 hover:before:-translate-x-40'  to="/categories">Categories </Link>
-     <Link className=' hover: flex items-center text-center justify-center uppercase h-[50px] before:ease relative  overflow-hidden border border-green-500 bg-green-500 text-white shadow-2xl transition-all before:absolute before:right-0 before:top-0 before:h-12 before:w-6 before:translate-x-12 before:rotate-6 before:bg-white before:opacity-10 before:duration-700 hover:shadow-green-500 hover:before:-translate-x-40'  to="/contacts">Contact </Link>
-     <Link className=' hover: flex items-center text-center justify-center uppercase h-[50px] before:ease relative  overflow-hidden border border-green-500 bg-green-500 text-white shadow-2xl transition-all before:absolute before:right-0 before:top-0 before:h-12 before:w-6 before:translate-x-12 before:rotate-6 before:bg-white before:opacity-10 before:duration-700 hover:shadow-green-500 hover:before:-translate-x-40'  to="/commons">Commons </Link>
-     <Link className=' hover: flex items-center text-center justify-center uppercase h-[50px] before:ease relative  overflow-hidden border border-green-500 bg-green-500 text-white shadow-2xl transition-all before:absolute before:right-0 before:top-0 before:h-12 before:w-6 before:translate-x-12 before:rotate-6 before:bg-white before:opacity-10 before:duration-700 hover:shadow-green-500 hover:before:-translate-x-40'  to="/faqs">Faqs </Link> */}
    </div>
 
     </div>

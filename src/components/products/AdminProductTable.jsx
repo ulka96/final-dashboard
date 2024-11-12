@@ -3,13 +3,24 @@ import { Link } from 'react-router-dom'
 import { useState } from 'react'
 import { useEffect } from 'react'
 
+// Redux hooks
+import { useSelector } from 'react-redux'
+
 const AdminProductTable = () => {
 
-  const [products, setProducts] = useState([])
+// const categories = useSelector((state) => state.categories.categories)
+  
+  // console.log(categories)
+  
+  // const selected = useSelector((state) => state.categories.selectedCategory)
+  
+
+
+const [products, setProducts] = useState([])
 
 const fetchProducts = async () =>{
   try {
-    console.log("object")
+
     const response = await fetch('http://localhost:3000/api/products');
     if (!response.ok) throw new Error('Failed to fetch products');
     const data = await response.json();
@@ -79,6 +90,8 @@ const fetchProducts = async () =>{
     }
   };
 
+
+
   return (
     <div className="my-8 mx-8 overflow-x-auto max-w-[1200px]">
   <Link to="/AddProduct" >
@@ -119,7 +132,16 @@ const fetchProducts = async () =>{
                 </td>
               <td className="py-2 px-4 border text-[14px]  border-gray-300">{products.title}</td>
               <td className="py-2 px-4 border text-[14px] items-center text-center justify-center border-gray-300">{products.price}</td>
-              <td className="py-2 px-4 border text-[14px] items-center text-center justify-center border-gray-300">{products.category}</td>
+              <td className="py-2 px-4 border text-[14px] items-center 
+              text-center justify-center
+               border-gray-300">
+              
+                  <p >
+                    {products.category}
+                  </p>             
+                
+                
+              </td>
               <td className="py-2 px-4 border text-[14px] items-center text-center justify-center border-gray-300">{products.material}</td>
               <td className="py-2 px-4 border text-[14px] items-center text-center justify-center border-gray-300">{products.color}</td>
               <td className="py-2 px-4 border text-[14px] items-center text-center justify-center border-gray-300">{products.description}</td>

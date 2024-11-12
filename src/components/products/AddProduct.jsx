@@ -1,8 +1,15 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+
+// Redux hooks
+import { useDispatch } from 'react-redux';
+
+// Actions
+import { mainCategories, selectCategory } from '../../slices/category.slice.js';
 
 const AddProduct = () => {
   const navigate = useNavigate();
+  const dispatch = useDispatch()
 
   // States for each field
   const [title, setTitle] = useState("");
@@ -17,6 +24,18 @@ const AddProduct = () => {
   const [rating, setRating] = useState("");
   const [imageUrl, setImageUrl] = useState(null);
   const [file, setFile] = useState(null);
+
+  const [categories, setCategories] = useState([])
+  // const [selectedCategory, setSelectedCategory] = useState("")
+  
+  // const selectCategoryHandler = (category) => {
+  //   setSelectedCategory(category);
+  // };
+
+  // dispatch(selectCategory(selectedCategory))
+
+  // console.log(selectedCategory)
+
 
   // Event handlers
   const handleFileChange = (event) => {
@@ -64,6 +83,29 @@ const AddProduct = () => {
     }
   };
 
+
+  const fetchCategories = async() => {
+    const response = await fetch("http://localhost:3000/api/categories")
+    const data = await response.json()
+
+    setCategories(data)
+    
+    dispatch(mainCategories(data))
+  }
+  
+  useEffect(() => {
+    fetchCategories()
+  }, [])
+
+
+
+  const handleCategoryChange = (e) => {
+    const selectedCategoryId = e.target.value;
+    setCategory(selectedCategoryId); 
+  };
+  
+  
+
   return (
     <div className="my-8 mx-8">
       <form onSubmit={handleAddProduct} className="mb-8">
@@ -84,14 +126,24 @@ const AddProduct = () => {
             className="border p-2" 
             required 
           />
-          <input 
-            type="text" 
-            placeholder="Category" 
+
+          <select 
             value={category}
-            onChange={(e) => setCategory(e.target.value)}
+            onChange={handleCategoryChange}
             className="border p-2" 
-            required 
-          />
+            required
+          >
+            <option value="">Select a category</option>
+            {categories && categories.map((category) => (
+              <option key={category._id} value={category.title}>
+                {category.title}
+              </option>
+            ))}
+          </select>
+
+
+
+
           <input 
             type="file" 
             placeholder="Image" 

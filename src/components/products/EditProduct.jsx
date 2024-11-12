@@ -18,6 +18,7 @@ const EditProduct = () => {
   const [rating, setRating] = useState("");
   const [imageUrl, setImageUrl] = useState(null);
   const [file, setFile] = useState(null);
+  const [categories, setCategories] = useState([]); // State for all categories
 
   // Fetch product data to prefill the form
   useEffect(() => {
@@ -28,7 +29,7 @@ const EditProduct = () => {
         
         setTitle(product.title);
         setPrice(product.price);
-        setCategory(product.category);
+        setCategory(product.category); // Set the category ID
         setMaterial(product.material);
         setDescription(product.description);
         setQuantity(product.quantity);
@@ -45,6 +46,21 @@ const EditProduct = () => {
     fetchProduct();
   }, [_id]);
 
+  // Fetch categories
+  useEffect(() => {
+    const fetchCategories = async () => {
+      try {
+        const response = await fetch("http://localhost:3000/api/categories");
+        const data = await response.json();
+        setCategories(data); // Set all categories
+      } catch (error) {
+        console.error("Failed to fetch categories:", error);
+      }
+    };
+
+    fetchCategories();
+  }, []);
+
   // Event handlers
   const handleFileChange = (event) => {
     const selectedFile = event.target.files[0];
@@ -54,13 +70,18 @@ const EditProduct = () => {
     }
   };
 
+  const handleCategoryChange = (e) => {
+    const selectedCategoryId = e.target.value;
+    setCategory(selectedCategoryId); // Only update local state
+  };
+
   const handleEditProduct = async (e) => {
     e.preventDefault();
 
     const formData = new FormData();
     formData.append("title", title);
     formData.append("price", price);
-    formData.append("category", category);
+    formData.append("category", category); // Send selected category ID
     formData.append("material", material);
     formData.append("description", description);
     formData.append("quantity", quantity);
@@ -92,8 +113,7 @@ const EditProduct = () => {
     } catch (error) {
       console.error("Fetch error:", error);
     }
-};
-
+  };
 
   return (
     <div className="my-8 mx-8">
@@ -115,14 +135,21 @@ const EditProduct = () => {
             className="border p-2" 
             required 
           />
-          <input 
-            type="text" 
-            placeholder="Category" 
-            value={category}
-            onChange={(e) => setCategory(e.target.value)}
+
+          <select 
+            value={category} // Bind to category state
+            onChange={handleCategoryChange} // Use handleCategoryChange for selection
             className="border p-2" 
-            required 
-          />
+            required
+          >
+            <option value="">Select a category</option>
+            {categories.map((cat) => (
+              <option key={cat._id} value={cat.title}>
+                {cat.title}
+              </option>
+            ))}
+          </select>
+
           <input 
             type="file" 
             placeholder="Image" 
