@@ -14,6 +14,10 @@ const AddProduct = () => {
   // States for each field
   const [title, setTitle] = useState("");
   const [price, setPrice] = useState("");
+  const [discountedPrice, setDiscountedPrice] = useState("");
+  const [discount, setDiscount] = useState("");
+  const [newArrival, setNewArrival] = useState(false);
+
   const [category, setCategory] = useState("");
   const [material, setMaterial] = useState("");
   const [description, setDescription] = useState("");
@@ -26,16 +30,6 @@ const AddProduct = () => {
   const [file, setFile] = useState(null);
 
   const [categories, setCategories] = useState([])
-  // const [selectedCategory, setSelectedCategory] = useState("")
-  
-  // const selectCategoryHandler = (category) => {
-  //   setSelectedCategory(category);
-  // };
-
-  // dispatch(selectCategory(selectedCategory))
-
-  // console.log(selectedCategory)
-
 
   // Event handlers
   const handleFileChange = (event) => {
@@ -52,6 +46,9 @@ const AddProduct = () => {
     const formData = new FormData();
     formData.append("title", title);
     formData.append("price", price);
+    formData.append("discountedPrice", discountedPrice);
+    formData.append("discount", discount);
+    formData.append("newArrival", newArrival);
     formData.append("category", category);
     formData.append("material", material);
     formData.append("description", description);
@@ -60,6 +57,7 @@ const AddProduct = () => {
     formData.append("sku", sku);
     formData.append("slug", slug);
     formData.append("rating", rating);
+
     if (file) {
       formData.append("productPic", file);
     }
@@ -127,6 +125,24 @@ const AddProduct = () => {
             required 
           />
 
+          <input 
+            type="number" 
+            placeholder="Discounted price" 
+            value={discountedPrice}
+            onChange={(e) => setDiscountedPrice(e.target.value)}
+            className="border p-2" 
+            required 
+          />
+
+            <input 
+            type="number" 
+            placeholder="Discount" 
+            value={discount}
+            onChange={(e) => setDiscount(e.target.value)}
+            className="border p-2" 
+            required 
+          />
+
           <select 
             value={category}
             onChange={handleCategoryChange}
@@ -140,9 +156,6 @@ const AddProduct = () => {
               </option>
             ))}
           </select>
-
-
-
 
           <input 
             type="file" 
@@ -206,6 +219,17 @@ const AddProduct = () => {
             className="border p-2" 
             required 
           />
+           <div className='flex flex-row items-center gap-2'>
+           <label className="block font-medium">New Arrival</label>
+           <input 
+            type="checkbox" 
+            placeholder="New Arrival" 
+            checked={newArrival}
+            onChange={(e) => setNewArrival(e.target.checked)}
+            className="border p-6 " 
+            />
+          </div>
+          
         </div>
         <button className="mt-4 p-2 relative h-[50px] w-40 overflow-hidden border border-green-900 bg-white text-green-900 shadow-2xl transition-all before:absolute before:left-0 before:right-0 before:top-0 before:h-0 before:w-full before:bg-green-900 before:duration-500 after:absolute after:bottom-0 after:left-0 after:right-0 after:h-0 after:w-full after:bg-green-900 after:duration-500 hover:text-white hover:shadow-green-900 hover:before:h-2/4 hover:after:h-2/4">
           <span className="relative z-10">Add Product</span>

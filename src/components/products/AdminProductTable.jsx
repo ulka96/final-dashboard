@@ -8,14 +8,6 @@ import { useSelector } from 'react-redux'
 
 const AdminProductTable = () => {
 
-// const categories = useSelector((state) => state.categories.categories)
-  
-  // console.log(categories)
-  
-  // const selected = useSelector((state) => state.categories.selectedCategory)
-  
-
-
 const [products, setProducts] = useState([])
 
 const fetchProducts = async () =>{
@@ -109,15 +101,18 @@ const fetchProducts = async () =>{
         <tr>
         <th className="py-2 px-4 border text-[14px] border-gray-300">ID</th>
           <th className="py-2 px-4 border text-[14px] border-gray-300">image</th>
-          <th className="py-2 px-4 border text-[14px] border-gray-300">title</th>
-          <th className="py-2 px-4 border text-[14px] border-gray-300">price</th>
+            <th className="py-2 px-4 border text-[14px] border-gray-300">title</th>
+            <th className="py-2 px-4 border text-[14px] border-gray-300">discount %</th>
+            <th className="py-2 px-4 border text-[14px] border-gray-300">price</th>
+            <th className="py-2 px-4 border text-[14px] border-gray-300">discounted price</th>
           <th className="py-2 px-4 border text-[14px] border-gray-300">category</th>
           <th className="py-2 px-4 border text-[14px] border-gray-300">material</th>
           <th className="py-2 px-4 border text-[14px] border-gray-300">color</th>
-          <th className="py-2 px-4 border text-[14px] border-gray-300">description</th>
+          <th className="py-2 px-10 w-[800px] border text-[14px] border-gray-300">description</th>
           <th className="py-2 px-4 border text-[14px] border-gray-300">quantity</th>
             <th className="py-2 px-4 border text-[14px] border-gray-300">SKU</th>
             <th className="py-2 px-4 border text-[14px] border-gray-300">Slug</th>
+            <th className="py-2 px-4 border text-[14px] border-gray-300">New arrival</th>
 
         </tr>
       </thead>
@@ -131,7 +126,10 @@ const fetchProducts = async () =>{
                 
                 </td>
               <td className="py-2 px-4 border text-[14px]  border-gray-300">{products.title}</td>
+              <td className="py-2 px-4 border text-[14px] items-center text-center justify-center border-gray-300">{products.discount}</td>
               <td className="py-2 px-4 border text-[14px] items-center text-center justify-center border-gray-300">{products.price}</td>
+              <td className="py-2 px-4 border text-[14px] items-center text-center justify-center border-gray-300">{products.discountedPrice}</td>
+
               <td className="py-2 px-4 border text-[14px] items-center 
               text-center justify-center
                border-gray-300">
@@ -144,10 +142,12 @@ const fetchProducts = async () =>{
               </td>
               <td className="py-2 px-4 border text-[14px] items-center text-center justify-center border-gray-300">{products.material}</td>
               <td className="py-2 px-4 border text-[14px] items-center text-center justify-center border-gray-300">{products.color}</td>
-              <td className="py-2 px-4 border text-[14px] items-center text-center justify-center border-gray-300">{products.description}</td>
+              <td className="py-2 px-10 w-[500px] border text-[14px] items-center text-center justify-center border-gray-300">{products.description}</td>
               <td className="py-2 px-4 border text-[14px]  items-center text-center justify-center border-gray-300">{products.quantity}</td>
               <td className="py-2 px-4 border text-[14px]  items-center text-center justify-center border-gray-300">{products.sku}</td>
               <td className="py-2 px-4 border text-[14px]  items-center text-center justify-center border-gray-300">{products.slug}</td>
+              <td className="py-2 px-4 border text-[14px]  items-center text-center justify-center border-gray-300"> {products.newArrival ? 'Yes' : 'No'}</td>
+
               <td className="py-2 px-4 border text-[14px] items-center text-center justify-center border-gray-300">
               <Link to={`/products/${products._id}`}>
          
