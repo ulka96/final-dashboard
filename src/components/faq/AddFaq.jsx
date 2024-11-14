@@ -8,8 +8,6 @@ const AddFaq = () => {
   const [question, setQuestion] = useState("");
   const [answer, setAnswer] = useState("");
 
-
-
   const handleAddFaq = async (e) => {
     e.preventDefault();
 
@@ -49,7 +47,7 @@ const AddFaq = () => {
             required 
           />
           
-          <input 
+          <textarea 
             type="text" 
             placeholder="Answer" 
             value={answer}
