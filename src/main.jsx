@@ -22,6 +22,8 @@ import { Provider } from 'react-redux';
 import {store} from './store/store.js';
 import AddFaq from './components/faq/AddFaq.jsx'
 import AdminFaqTable from './components/faq/AdminFaqTable.jsx'
+import AddBlog from './components/blogs/AddBlog.jsx'
+import AdminBlogTable from './components/blogs/AdminBlogTable.jsx'
 
 
 const router = createBrowserRouter([
@@ -60,6 +62,13 @@ const router = createBrowserRouter([
       },
       {
         path: "/faqs", element: <AdminFaqTable/>
+      },
+
+      {
+        path: "/addBlog", element: <AddBlog/>
+      },
+      {
+        path: "/blogs", element: <AdminBlogTable/>
       },
 
     ]
