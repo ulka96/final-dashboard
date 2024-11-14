@@ -74,7 +74,7 @@ const AddBlog = () => {
             value={videoUrl}
             onChange={(e) => setVideoUrl(e.target.value)}
             className="border p-2" 
-            required 
+    
           />        
 
           
