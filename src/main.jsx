@@ -20,6 +20,8 @@ import EditCategory from './components/categories/EditCategory.jsx'
 // Redux
 import { Provider } from 'react-redux';
 import {store} from './store/store.js';
+import AddFaq from './components/faq/AddFaq.jsx'
+import AdminFaqTable from './components/faq/AdminFaqTable.jsx'
 
 
 const router = createBrowserRouter([
@@ -52,6 +54,12 @@ const router = createBrowserRouter([
       },
       {
         path: "/categories/:categoryId", element: <EditCategory/>
+      },
+      {
+        path: "/addFaq", element: <AddFaq/>
+      },
+      {
+        path: "/faqs", element: <AdminFaqTable/>
       },
 
     ]

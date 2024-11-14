@@ -46,6 +46,16 @@ const Sidebar = ({ sidebarToggle, onMenuItemClick }) => {
           <FaUsers className='mr-3'/>
           Categories
         </Link>
+
+        <Link className=' hover: flex items-center text-center justify-center h-[50px] 
+   before:ease relative overflow-hidden hover:bg-gray-300
+   shadow-2xl transition-all before:absolute before:right-0 before:top-0 before:h-12 before:w-6
+   before:translate-x-12 before:rotate-6 before:bg-white before:opacity-10
+   before:duration-700 hover:shadow-[#c5c2c2] 
+   hover:before:-translate-x-40' to="/faqs">
+          <FaUsers className='mr-3'/>
+          FAQ
+        </Link>
      
 
    </div>
