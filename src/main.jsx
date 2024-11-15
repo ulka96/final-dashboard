@@ -24,6 +24,8 @@ import AddFaq from './components/faq/AddFaq.jsx'
 import AdminFaqTable from './components/faq/AdminFaqTable.jsx'
 import AddBlog from './components/blogs/AddBlog.jsx'
 import AdminBlogTable from './components/blogs/AdminBlogTable.jsx'
+import EditBlog from './components/blogs/EditBlog.jsx'
+import EditFaq from './components/faq/EditFaq.jsx'
 
 
 const router = createBrowserRouter([
@@ -69,6 +71,12 @@ const router = createBrowserRouter([
       },
       {
         path: "/blogs", element: <AdminBlogTable/>
+      },
+      {
+        path: "/blogs/:blogId", element: <EditBlog/>
+      },
+      {
+        path: "/faqs/:faqId", element: <EditFaq/>
       },
 
     ]
